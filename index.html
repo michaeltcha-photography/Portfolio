@@ -1,1017 +1,773 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Michael Tcha Photography Studio</title>
-  <meta name="description" content="High-end product, watch, lifestyle, marketing and portrait photography by Michael Tcha Photography Studio." />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif']
-          },
-          colors: {
-            ink: '#050506',
-            graphite: '#0d0d10',
-            soft: '#c9c4bb',
-            muted: '#8d8780',
-          gold: '#ff2a1f',
-ember: '#ff2a1f'
-          }
-        }
-      }
-    }
-  </script>
+  <title>Michaelens Studio | En construction</title>
+  <link rel="icon" type="image/png" href="image/fav.png" />
+<link rel="apple-touch-icon" href="image/fav.png" />
 
   <style>
     :root {
-      color-scheme: dark;
-      --line: rgba(255,255,255,.11);
-      --glass: rgba(255,255,255,.065);
-     --gold: #ff2a1f;
+      --bg: #050607;
+      --text: #f7f3ec;
+      --muted: rgba(247, 243, 236, .64);
+      --line: rgba(247, 243, 236, .16);
+      --vh: 1vh;
+      --carousel-opacity: 0;
+      --carousel-progress: 0;
+      --carousel-x: 0px;
+      --carousel-start: clamp(560px, 43vw, 780px);
     }
-    body {
-  margin: 0;
-  background: #050506;
-  color: #f2eee8;
-  font-family: Inter, sans-serif;
-  overflow-x: hidden;
-  position: relative;
-}
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 72% 18%, rgba(255, 42, 31, .16), transparent 28%),
-    radial-gradient(circle at 18% 72%, rgba(255, 105, 35, .10), transparent 30%),
-    radial-gradient(circle at 55% 52%, rgba(255, 42, 31, .055), transparent 34%),
-    #050506;
-  filter: blur(18px);
-  animation: softRedBlob 18s ease-in-out infinite alternate;
-}
-
-@keyframes softRedBlob {
-  0% {
-    transform: translate3d(-2%, -1%, 0) scale(1);
-    opacity: .8;
-  }
-  50% {
-    transform: translate3d(2%, 1.5%, 0) scale(1.04);
-    opacity: .95;
-  }
-  100% {
-    transform: translate3d(-1%, 2%, 0) scale(1.02);
-    opacity: .75;
-  }
-}
-
-    html { scroll-behavior: smooth; }
-    body {
+    * {
       margin: 0;
-      background: #050506;
-      color: #f2eee8;
-      font-family: Inter, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: auto;
+    }
+
+    body {
+      min-height: 360vh;
+      min-height: calc(var(--vh) * 360);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
       overflow-x: hidden;
     }
 
-    ::selection { background: rgba(199,168,107,.35); color: #fff; }
-
-  
-.luxury-gradient {
-  background:
-    radial-gradient(circle at 82% 18%, rgba(255, 42, 31, .10), transparent 36%),
-    radial-gradient(circle at 18% 78%, rgba(255, 105, 35, .07), transparent 34%),
-    #050506;
-}
-.portfolio-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px;
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(18px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .35s ease, visibility .35s ease;
-}
-
-.portfolio-lightbox.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.portfolio-lightbox img {
-  width: auto;
-  height: auto;
-  max-width: 94vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 18px;
-  box-shadow:
-    0 0 0 1px rgba(255, 42, 31, .45),
-    0 0 55px rgba(255, 42, 31, .25);
-}
-.hero-bg {
-  image-rendering: auto;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  will-change: transform;
-  filter: brightness(1.18) contrast(1.12) saturate(1.08);
-}
-.portfolio-lightbox__close {
-  position: fixed;
-  top: 28px;
-  right: 28px;
-  z-index: 1000000;
-  width: 52px;
-  height: 52px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 42, 31, .75);
-  background: rgba(0, 0, 0, .72);
-  color: #ff2a1f;
-  font-size: 34px;
-  line-height: 1;
-  cursor: pointer;
-  transform: rotate(45deg);
-  box-shadow: 0 0 24px rgba(255, 42, 31, .35);
-}
-.gallery-card {
-  opacity: 1;
-  transform: none;
-}
-.about-signature {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 14px 18px;
-  border-left: 2px solid #ff2a1f;
-  background: linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.18));
-  backdrop-filter: blur(14px);
-}
-
-.about-signature span {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.about-signature small {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-}
-.glass,
-.contact-glass,
-#priceCard,
-.gallery-card > div,
-.glass > div > div,
-#priceFeatures > div,
-#priceCard .rounded-\[1\.5rem\],
-#about .rounded-\[1\.5rem\],
-#about .rounded-\[2\.2rem\] {
-  position: relative;
-  overflow: hidden;
-}
-#about,
-#process,
-#portfolio,
-#pricing,
-#contact {
-  scroll-margin-top: 120px;
-}
-
-.glass::before,
-.contact-glass::before,
-
-
-.gallery-card > div::before,
-.glass > div > div::before,
-#priceFeatures > div::before,
-#priceCard .rounded-\[1\.5rem\]::before,
-#about .rounded-\[1\.5rem\]::before,
-#about .rounded-\[2\.2rem\]::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 42, 31, 0.06),
-    rgba(255, 42, 31, 0.95),
-    rgba(255, 255, 255, 0.25),
-    rgba(255, 42, 31, 0.06)
-  );
-  background-size: 300% 300%;
-  animation: glassRedBorder 4s linear infinite;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-
-.glass::after,
-.contact-glass::after,
-
-.gallery-card > div::after,
-.glass > div > div::after,
-#priceFeatures > div::after,
-#priceCard .rounded-\[1\.5rem\]::after,
-#about .rounded-\[1\.5rem\]::after,
-#about .rounded-\[2\.2rem\]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow:
-    0 0 18px rgba(255, 42, 31, 0.18),
-    inset 0 0 18px rgba(255, 42, 31, 0.08);
-  animation: glassRedGlow 3.5s ease-in-out infinite;
-}
-
-.glass > *,
-.contact-glass > *,
-.gallery-card > div > *,
-.glass > div > div > *,
-#priceFeatures > div > *,
-#priceCard .rounded-\[1\.5rem\] > *,
-#about .rounded-\[1\.5rem\] > *,
-#about .rounded-\[2\.2rem\] > * {
-  position: relative;
-  z-index: 1;
-}
-@keyframes glassRedBorder {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
-}
-
-@keyframes glassRedGlow {
-  0%, 100% { opacity: .35; }
-  50% { opacity: .85; }
-
-}
-
-    .nav-scrolled {
-      background: rgba(5,5,6,.98) !important;
-      border-color: rgba(255,255,255,.12) !important;
-      backdrop-filter: blur(30px);
-      transform: translateY(12px);
-      width: min(1120px, calc(100% - 32px)) !important;
-      border-radius: 999px;
+    .fixed-site {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: calc(var(--vh) * 100);
+      overflow: hidden;
+      background: #050607;
+      isolation: isolate;
     }
 
-    .reveal { opacity: 0; transform: translateY(42px); }
+    .video-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      background: #050607;
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      will-change: transform, opacity;
+      transition:
+        transform 1250ms cubic-bezier(.16, 1, .3, 1),
+        opacity 950ms cubic-bezier(.16, 1, .3, 1);
+    }
 
-    .split-line {
+    .video-stage.is-out {
+      transform: translate3d(0, 112vh, 0);
+      opacity: 0;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
+    }
+
+    .site-header {
+      position: absolute;
+      z-index: 40;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: clamp(18px, 3vw, 34px) clamp(22px, 4.8vw, 76px);
+      pointer-events: none;
+    }
+
+    .logo-wrap {
+      display: inline-flex;
+      pointer-events: auto;
+    }
+
+    .logo-wrap img {
+      height: clamp(58px, 7vw, 112px);
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.46));
+    }
+
+    .header-tag {
+      position: absolute;
+      top: clamp(76px, 8.8vw, 120px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: .46em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.52);
+      white-space: nowrap;
+    }
+
+    .scroll-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-size: 10px;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .scroll-label::after {
+      content: "";
+      width: 1px;
+      height: 54px;
+      background: var(--line);
+      display: block;
+      animation: scrollPulse 1.9s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .22; transform: scaleY(.65); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    .content-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .content-layer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: clamp(410px, 31vw, 620px);
+      z-index: 3;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.54) 0%, rgba(0,0,0,.34) 54%, rgba(0,0,0,.12) 82%, rgba(0,0,0,0) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.010));
+      backdrop-filter: blur(18px) saturate(1.08);
+      -webkit-backdrop-filter: blur(18px) saturate(1.08);
+      pointer-events: none;
+    }
+
+    .text-zone {
+      position: absolute;
+      z-index: 5;
+      left: clamp(26px, 5vw, 78px);
+      top: 50%;
+      width: min(420px, calc(100vw - 52px));
+      transform: translateY(-50%);
+      pointer-events: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: clamp(10px, .85vw, 12px);
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    h1 {
+      font-size: clamp(30px, 3.4vw, 58px);
+      line-height: .96;
+      letter-spacing: -.04em;
+      font-weight: 700;
+      text-transform: uppercase;
+      max-width: 410px;
+      text-wrap: balance;
+    }
+
+    .thin {
+      font-weight: 260;
+      letter-spacing: -.035em;
+    }
+
+    .lead {
+      margin-top: 23px;
+      max-width: 398px;
+      font-size: clamp(14px, 1.08vw, 17px);
+      line-height: 1.58;
+      color: rgba(247, 243, 236, .76);
+    }
+
+    .contact-card {
+      margin-top: 30px;
+      width: min(390px, 100%);
+      padding: 16px 18px;
+      border: 0;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.040) 48%, rgba(255,255,255,.070)),
+        rgba(5, 6, 7, .24);
+      backdrop-filter: blur(28px) saturate(1.22);
+      -webkit-backdrop-filter: blur(28px) saturate(1.22);
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      align-items: center;
+      box-shadow:
+        0 28px 90px rgba(0,0,0,.34),
+        inset 0 1px 0 rgba(255,255,255,.13),
+        inset 0 -1px 0 rgba(255,255,255,.04);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 12% 0%, rgba(255,255,255,.18), transparent 34%), linear-gradient(115deg, rgba(255,255,255,.10), transparent 44%);
+      opacity: .58;
+      pointer-events: none;
+    }
+
+    .contact-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .mail-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.070);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .mail-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text);
+      stroke-width: 1.45;
+      fill: none;
+    }
+
+    .contact-small {
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .contact-link {
+      color: var(--text);
+      font-size: clamp(12px, 1.05vw, 16px);
+      line-height: 1.1;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .gallery-zone {
+      position: absolute;
+      z-index: 1;
+      inset: 8vh 0 7vh 0;
+      opacity: var(--carousel-opacity);
+      transform: translate3d(0, calc((1 - var(--carousel-progress)) * 54px), 0);
+      pointer-events: auto;
+      will-change: transform, opacity;
+    }
+
+    .carousel-shell {
+      width: 100%;
+      height: 100%;
+      position: relative;
       overflow: hidden;
     }
 
-    .gallery-card img,
-    .parallax-img {
+    .carousel-track {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: clamp(22px, 2.4vw, 40px);
+      transform: translate3d(calc(var(--carousel-x) * -1), 0, 0);
+      transition: transform 120ms linear;
       will-change: transform;
+      padding-left: var(--carousel-start);
+      padding-right: clamp(34px, 5vw, 90px);
     }
+
+    .photo-card {
+      position: relative;
+      flex: 0 0 clamp(360px, 30vw, 560px);
+      width: clamp(360px, 30vw, 560px);
+      aspect-ratio: 16 / 9;
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 30px 82px rgba(0,0,0,.26);
+      transform: translate3d(0, calc(var(--card-offset) * 18px), 0);
+      opacity: 1;
+      will-change: transform;
+      cursor: zoom-in;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      image-rendering: auto;
+    }
+
+    .gallery-caption {
+      position: absolute;
+      right: clamp(18px, 3vw, 42px);
+      bottom: clamp(8px, 2vh, 22px);
+      z-index: 4;
+      font-size: 10px;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.50);
+      pointer-events: none;
+    }
+
+    .side-index {
+      position: absolute;
+      right: clamp(20px, 4vw, 64px);
+      bottom: clamp(24px, 5vw, 62px);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .progress-track {
+      width: 92px;
+      height: 1px;
+      background: var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--text);
+      transition: width 120ms linear;
+    }
+
+    .panel-label {
+      position: absolute;
+      left: clamp(18px, 4vw, 62px);
+      bottom: clamp(22px, 4vw, 58px);
+      z-index: 40;
+      color: rgba(247,243,236,.38);
+      font-size: 10px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      pointer-events: none;
+    }
+
     .lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(14px);
-}
-
-.lightbox.open {
-  display: flex;
-}
-
-.lightbox img {
-  max-width: 95vw;
-  max-height: 92vh;
-  object-fit: contain;
-  border-radius: 18px;
-  box-shadow: 0 0 60px rgba(255, 42, 31, 0.22);
-}
-
-.lightbox-close {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 10000;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.45);
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-    .filter-btn.active,
-    .price-tab.active {
-      background: #f2eee8;
-      color: #050506;
-      border-color: #f2eee8;
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      background: rgba(0, 0, 0, .78);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
     }
 
-.before-after {
-  position: relative;
-  overflow: hidden;
-  cursor: ew-resize;
-  user-select: none;
-  touch-action: none;
-}
-
-.before-after .after-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.before-layer {
-  position: absolute;
-  inset: 0;
-  width: 50%;
-  overflow: hidden;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.before-layer img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--ba-width);
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  object-position: center;
-
-}
-
-.slider-handle {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  z-index: 20;
-  width: 4px;
-  background: white;
-  transform: translateX(-50%);
-  cursor: ew-resize;
-}
-
-.slider-handle::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 58px;
-  height: 58px;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  border: 2px solid white;
-  background: rgba(0,0,0,.72);
-}
-
-.slider-handle::after {
-  content: "‹ ›";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -54%);
-  color: white;
-  font-size: 24px;
-  font-weight: 800;
-}
-    .menu-overlay {
-      clip-path: inset(0 0 100% 0);
-      transition: clip-path .7s cubic-bezier(.76,0,.24,1);
+    .lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .menu-overlay.open { clip-path: inset(0 0 0 0); }
-
-
-@keyframes redNeonBorder {
-  0%, 100% {
-    opacity: 0.45;
-    box-shadow:
-      0 0 8px rgba(255, 42, 31, 0.35),
-      0 0 20px rgba(255, 42, 31, 0.18),
-      inset 0 0 12px rgba(255, 42, 31, 0.12);
-  }
-  50% {
-    opacity: 0.9;
-    box-shadow:
-      0 0 16px rgba(255, 42, 31, 0.7),
-      0 0 42px rgba(255, 42, 31, 0.35),
-      inset 0 0 24px rgba(255, 42, 31, 0.22);
-  }
-}
-    @media (max-width: 768px) {
-      .before-layer img { width: 100vw; }
-      .nav-scrolled { transform: translateY(8px); }
+    .lightbox img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: min(92vw, var(--natural-width, 92vw));
+      max-height: min(88vh, var(--natural-height, 88vh));
+      object-fit: contain;
+      box-shadow: 0 30px 100px rgba(0,0,0,.48);
     }
-   .price-main-panel {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 42, 31, 0.25);
-  background: rgba(0, 0, 0, 0.16);
-}
 
-.price-main-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 42, 31, 0.04),
-    rgba(255, 42, 31, 0.95),
-    rgba(255, 255, 255, 0.22),
-    rgba(255, 42, 31, 0.04)
-  );
-  background-size: 300% 300%;
-  animation: glassRedBorder 4s linear infinite;
+    .lightbox-close {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
 
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
+    @media (max-width: 1180px) {
+      :root {
+        --carousel-start: clamp(430px, 46vw, 620px);
+      }
 
-.price-main-panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  box-shadow:
-    0 0 18px rgba(255, 42, 31, 0.18),
-    inset 0 0 18px rgba(255, 42, 31, 0.08);
-}
+      .content-layer::before {
+        width: clamp(400px, 38vw, 540px);
+      }
 
-.price-main-panel > * {
-  position: relative;
-  z-index: 1;
-}
+      .photo-card {
+        flex-basis: clamp(310px, 36vw, 430px);
+        width: clamp(310px, 36vw, 430px);
+      }
+    }
 
+    @media (max-width: 820px) {
+      :root {
+        --carousel-start: 20px;
+      }
 
+      body {
+        min-height: 380vh;
+        min-height: calc(var(--vh) * 380);
+      }
+
+      .video-stage.is-out {
+        transform: translate3d(0, 116vh, 0);
+      }
+
+      .site-header {
+        padding: 18px 20px;
+      }
+
+      .logo-wrap img {
+        height: clamp(50px, 18vw, 82px);
+      }
+
+      .header-tag,
+      .scroll-label,
+      .panel-label,
+      .gallery-caption {
+        display: none;
+      }
+
+      .content-layer::before {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70vh;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.46) 36%, rgba(0,0,0,.70) 100%),
+          linear-gradient(180deg, rgba(255,255,255,.040), rgba(255,255,255,.010));
+      }
+
+      .text-zone {
+        left: 20px;
+        right: 20px;
+        bottom: 74px;
+        top: auto;
+        width: min(350px, calc(100vw - 40px));
+        transform: none;
+      }
+
+      .eyebrow {
+        font-size: 9px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: clamp(30px, 9.8vw, 46px);
+        line-height: .98;
+        letter-spacing: -.035em;
+        max-width: 340px;
+      }
+
+      .lead {
+        margin-top: 18px;
+        font-size: 14px;
+        max-width: 340px;
+      }
+
+      .contact-card {
+        width: min(330px, 100%);
+        margin-top: 24px;
+        padding: 15px;
+        grid-template-columns: 44px 1fr;
+        gap: 13px;
+        border-radius: 20px;
+      }
+
+      .mail-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+      }
+
+      .contact-link {
+        font-size: clamp(12px, 4.1vw, 15px);
+      }
+
+      .gallery-zone {
+        inset: 88px 0 265px 0;
+        transform: translate3d(0, calc((1 - var(--carousel-progress)) * 44px), 0);
+      }
+
+      .carousel-track {
+        gap: 14px;
+        padding-right: 20px;
+      }
+
+      .photo-card {
+        flex: 0 0 clamp(260px, 84vw, 430px);
+        width: clamp(260px, 84vw, 430px);
+        aspect-ratio: 16 / 9;
+        border-radius: 20px;
+      }
+
+      .side-index {
+        right: 20px;
+        bottom: 20px;
+        font-size: 10px;
+        gap: 9px;
+      }
+
+      .progress-track {
+        width: 52px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 
-<body class=" bg-ink text-stone-100">
-  <header id="siteNav" class="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full border-b border-white/0 transition-all duration-500">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
-      <a href="#top" class="group flex items-center gap-3">
-       <img src="image/Logo.png" alt="Michael Tcha Photography" class="h-10 w-auto object-contain">
+<body>
+  <div class="fixed-site">
+    <div class="video-stage" id="videoStage">
+      <video class="hero-video" src="image/video.mp4" muted playsinline autoplay loop preload="auto"></video>
+    </div>
+
+    <header class="site-header">
+      <a class="logo-wrap" href="#" aria-label="Michaelens Studio">
+        <img src="image/logo.png" alt="Michaelens Studio" />
       </a>
+      <div class="header-tag">Photography Studio</div>
+      <div class="scroll-label">Scroll</div>
+    </header>
 
-      <nav class="hidden items-center gap-7 text-xs uppercase tracking-[.18em] text-white/58 md:flex">
-        <a class="transition hover:text-white" href="#about">About</a>
-        <a class="transition hover:text-white" href="#process">Process</a>
-        <a class="transition hover:text-white" href="#portfolio">Portfolio</a>
-        <a class="transition hover:text-white" href="#pricing">Pricing</a>
-        <a class="transition hover:text-white" href="#contact">Contact</a>
-      </nav>
+    <main class="content-layer">
+      <section class="text-zone" aria-label="Michaelens Studio en construction">
+        <div class="eyebrow">Michaelens Studio</div>
+        <h1>Site en<br><span class="thin">construction</span></h1>
+        <p class="lead">Le site est actuellement en cours de construction. Le studio prépare une nouvelle présence en ligne dédiée à la photographie professionnelle.</p>
 
-      <button id="menuToggle" class="rounded-full border border-white/15 px-5 py-2 text-xs uppercase tracking-[.18em] text-white/80 transition hover:border-white/40 hover:text-white">Menu</button>
-    </div>
-  </header>
-
-  <div id="menuOverlay" class="menu-overlay fixed inset-0 z-[60] bg-[#070707]/95 backdrop-blur-2xl">
-    <div class="flex h-full flex-col justify-between p-7 md:p-12">
-      <div class="flex items-center justify-between">
-        <span class="text-xs uppercase tracking-[.26em] text-white/50">Studio Navigation</span>
-        <button id="menuClose" class="rounded-full border border-white/15 px-5 py-2 text-xs uppercase tracking-[.18em] text-white/80">Close</button>
-      </div>
-      <nav class="flex flex-col gap-5 text-5xl font-light tracking-[-.07em] text-white md:text-8xl">
-        <a class="overlay-link transition hover:text-gold" href="#about">About</a>
-        <a class="overlay-link transition hover:text-gold" href="#process">Transformation</a>
-        <a class="overlay-link transition hover:text-gold" href="#portfolio">Portfolio</a>
-        <a class="overlay-link transition hover:text-gold" href="#pricing">Pricing</a>
-        <a class="overlay-link transition hover:text-gold" href="#contact">Contact</a>
-      </nav>
-      <p class="max-w-xl text-sm leading-7 text-white/52">High-end photography for watches, product brands, visual campaigns and premium digital communication.</p>
-    </div>
-  </div>
-
-  <main id="top">
-    <section class="luxury-gradient relative flex min-h-screen items-end overflow-hidden px-5 pb-10 pt-32 md:px-8 md:pb-14">
-    <div class="absolute inset-0">
-  <img class="hero-bg h-full w-full object-cover" src="image/04.png" alt="Luxury watch photography background" onerror="this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&q=80&w=1800';" />
-</div>
-
-<div class="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-black via-black/65 to-transparent"></div>
-
-<div class="absolute inset-0 bg-gradient-to-b from-black/0 via-black/5 to-black/45"></div>
-<div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/10"></div>
-<div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ink/90 to-transparent"></div>
-
-      <div class="relative z-10 mx-auto grid w-full max-w-7xl items-end gap-10 md:grid-cols-[1.2fr_.8fr]">
-        <div>
-          <p class="reveal mb-6 text-xs uppercase tracking-[.28em] text-gold">Product, Watch & Brand Photography</p>
-          <h1 class="hero-title max-w-5xl text-6xl font-light tracking-[-.09em] text-white md:text-8xl lg:text-[118px] lg:leading-[.86]">
-            Precision visuals for brands built on details.
-          </h1>
-          <div class="reveal mt-8 flex flex-col gap-5 md:flex-row md:items-center">
-            <a href="#portfolio" class="inline-flex w-fit items-center justify-center rounded-full bg-white px-7 py-4 text-sm font-semibold text-black transition hover:bg-gold">View Portfolio</a>
-            <a href="#contact" class="inline-flex w-fit items-center justify-center rounded-full border border-white/16 px-7 py-4 text-sm font-semibold text-white/82 transition hover:border-white/45 hover:text-white">Book a Shoot</a>
+        <div class="contact-card">
+          <div class="mail-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <rect x="8" y="12" width="32" height="24" rx="2"></rect>
+              <path d="M9 14l15 13 15-13"></path>
+              <path d="M18 24L9 35"></path>
+              <path d="M30 24l9 11"></path>
+            </svg>
           </div>
-        </div>
-
-        <div class="reveal glass rounded-[2rem] p-5 md:p-7">
-          <div class="grid grid-cols-2 gap-3">
-            <div class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5">
-              <p class="text-4xl font-light tracking-[-.07em]">150+</p>
-              <p class="mt-8 text-xs text-white/46">Images delivered for product, watch and brand campaigns.</p>
-            </div>
-            <div class="rounded-[1.4rem] border border-white/10 bg-white/[.035] p-5">
-              <p class="text-4xl font-light tracking-[-.07em]">4K</p>
-              <p class="mt-8 text-xs text-white/46">Retouching-ready assets for web, social and print usage.</p>
-            </div>
-          </div>
-          <p class="mt-5 text-sm leading-7 text-white/58">From technical packshots to atmospheric campaign imagery, the studio builds sharp, premium visuals with a watch-industry approach to precision.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="about" class="relative px-5 py-28 md:px-8 md:py-36">
-      <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-[.85fr_1.15fr] md:items-center">
-        <div class="reveal relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[.035]">
-          <img class="parallax-img h-[520px] w-full object-cover" src="image/mika.png" alt="Portrait placeholder for Michael Tcha" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          <div class="about-signature absolute bottom-6 left-6">
-  <span>Michael Tcha</span>
-  <small>Photography Studio</small>
-</div>
-        </div>
-
-        <div>
-          <p class="reveal mb-5 text-xs uppercase tracking-[.28em] text-gold">About the studio</p>
-          <h2 class="reveal max-w-3xl text-5xl font-light tracking-[-.08em] text-white md:text-7xl">A visual language shaped for product value.</h2>
-          <p class="reveal mt-8 max-w-2xl text-lg leading-9 text-white/66">My name is Michael Tcha, I am a professional photographer passionate by product. Together with my wife working as a designer in the watch and fashion industry, I create shoots and she advises on the artistic direction to create stunning visuals for brands.</p>
-          <div class="mt-10 grid gap-4 sm:grid-cols-3">
-            <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/[.035] p-5">
-              <p class="text-xs uppercase tracking-[.2em] text-white/42">Focus</p>
-              <p class="mt-5 text-lg text-white">Watch & product detail</p>
-            </div>
-            <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/[.035] p-5">
-              <p class="text-xs uppercase tracking-[.2em] text-white/42">Direction</p>
-              <p class="mt-5 text-lg text-white">Art-led composition</p>
-            </div>
-            <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/[.035] p-5">
-              <p class="text-xs uppercase tracking-[.2em] text-white/42">Output</p>
-              <p class="mt-5 text-lg text-white">Web, campaign, print</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="process" class="px-5 py-24 md:px-8 md:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-12 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:items-end">
           <div>
-            <p class="reveal mb-5 text-xs uppercase tracking-[.28em] text-gold">The transformation</p>
-            <h2 class="reveal text-5xl font-light tracking-[-.08em] text-white md:text-7xl">RAW to stunning composition.</h2>
-          </div>
-          <p class="reveal max-w-2xl text-base leading-8 text-white/58">A product image becomes stronger through controlled light, refined contrast, premium color work and detailed retouching. Slide across the image to compare the base capture with the final direction.</p>
-        </div>
-
- <div id="beforeAfter" class="before-after reveal h-[470px] rounded-[2.4rem] border border-white/10 bg-white/[.035] md:h-[680px]">
-  <img class="after-img h-full w-full object-cover" src="image/04.png" alt="Final retouched product composition">
-  <div id="beforeLayer" class="before-layer">
-    <img src="image/05.png" alt="Raw product image">
-  </div>
-  <div id="sliderHandle" class="slider-handle"></div>
-  <div class="absolute left-5 top-5 z-10 rounded-full bg-black/45 px-5 py-2 text-xs uppercase tracking-[.2em] text-white/68 backdrop-blur-xl">RAW</div>
-  <div class="absolute right-5 top-5 z-10 rounded-full bg-white px-5 py-2 text-xs uppercase tracking-[.2em] text-black">FINAL</div>
-</div>
-    </section>
-
-    <section id="portfolio" class="px-5 py-24 md:px-8 md:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p class="reveal mb-5 text-xs uppercase tracking-[.28em] text-gold">Selected work</p>
-            <h2 class="reveal text-5xl font-light tracking-[-.08em] text-white md:text-7xl">Portfolio.</h2>
-          </div>
-          <div id="filters" class="reveal flex flex-wrap gap-2">
-            <button class="filter-btn active rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="all">All</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="packshot">Product Packshot</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="lifestyle">Lifestyle</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="marketing">Marketing</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="events">Events</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="portrait">Portrait</button>
-            <button class="filter-btn rounded-full border border-white/12 px-4 py-2 text-xs uppercase tracking-[.16em] text-white/66 transition" data-filter="animals">Animals</button>
+            <div class="contact-small">Pour me contacter</div>
+            <a class="contact-link" href="mailto:contact@michaelens-studio.ch">contact@michaelens-studio.ch</a>
           </div>
         </div>
+      </section>
 
-        <div id="gallery" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="gallery-card reveal group" data-category="packshot"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/ELKA4.png" alt="Product packshot"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Packshot</p><h3 class="mt-2 text-xl text-white">Technical Product Study</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="packshot"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/elka2.png" alt="Product packshot"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Packshot</p><h3 class="mt-2 text-xl text-white">Clean Detail Capture</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="packshot"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/ELKA1.png" alt="Product packshot"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Packshot</p><h3 class="mt-2 text-xl text-white">Catalogue Precision</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="lifestyle"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/02.png" alt="Lifestyle product visual"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Lifestyle</p><h3 class="mt-2 text-xl text-white">Atmospheric Scene</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="marketing"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Andremar.png" alt="Marketing image"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Marketing Images</p><h3 class="mt-2 text-xl text-white">Art Direction Campaign</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="events"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Utt4.png" alt="Event photography"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Events</p><h3 class="mt-2 text-xl text-white">Live Moment Capture</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="events"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Untitled-4.png" alt="Event photography"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Events</p><h3 class="mt-2 text-xl text-white">Editorial Event Frame</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="events"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Unt6.jpg" alt="Event photography"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Events</p><h3 class="mt-2 text-xl text-white">Human Atmosphere</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="portrait"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Unt5.jpg" alt="Portrait photography"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Portrait</p><h3 class="mt-2 text-xl text-white">Studio Character</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="lifestyle"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/schaefer2.png" alt="Watch lifestyle visual"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Lifestyle</p><h3 class="mt-2 text-xl text-white">Watch Environment</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="marketing"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Schaefer01.png" alt="Marketing visual"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Marketing Images</p><h3 class="mt-2 text-xl text-white">Premium Composition</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="animals"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/8.png" alt="Animal photography"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Animals</p><h3 class="mt-2 text-xl text-white">Companion Portrait</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="marketing"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/TTW_WSTO5.png" alt="Marketing image"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Marketing Images</p><h3 class="mt-2 text-xl text-white">TimeToWatches Visual</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="marketing"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/TTW_WSTO3.png" alt="Marketing image"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Marketing Images</p><h3 class="mt-2 text-xl text-white">Campaign Still</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="lifestyle"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/Untitled-ds.png" alt="Lifestyle product visual"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Lifestyle</p><h3 class="mt-2 text-xl text-white">Lifestyle Detail</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="lifestyle"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/NallaNeram_TimeToWatches_ArtecVision_Shoot02.jpg" alt="Watch lifestyle image"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Lifestyle</p><h3 class="mt-2 text-xl text-white">Watch Editorial</h3></div></div></article>
-          <article class="gallery-card reveal group" data-category="lifestyle"><div class="relative overflow-hidden rounded-[1.7rem] border border-white/10 bg-white/[.035]"><img class="h-[430px] w-full object-cover transition duration-700 group-hover:scale-105" src="image/NallaNeram_TimeToWatches_ArtecVision_Shoot01.jpg" alt="Watch lifestyle image"><div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5"><p class="text-xs uppercase tracking-[.2em] text-gold">Product Lifestyle</p><h3 class="mt-2 text-xl text-white">Watch Narrative</h3></div></div></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="pricing" class="px-5 py-24 md:px-8 md:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-10 text-center">
-          <p class="reveal mb-5 text-xs uppercase tracking-[.28em] text-gold">Pricing</p>
-          <h2 class="reveal text-5xl font-light tracking-[-.08em] text-white md:text-7xl">Premium production, clear entry points.</h2>
-          <p class="reveal mx-auto mt-7 max-w-2xl text-base leading-8 text-white/58">Prices vary depending on complexity, retouching level, image usage, location needs and artistic direction.</p>
-        </div>
-
-        <div class="reveal mb-8 flex flex-wrap justify-center gap-2">
-          <button class="price-tab active rounded-full border border-white/12 px-5 py-3 text-xs uppercase tracking-[.16em] text-white/66 transition" data-price="packshot">Packshot</button>
-          <button class="price-tab rounded-full border border-white/12 px-5 py-3 text-xs uppercase tracking-[.16em] text-white/66 transition" data-price="lifestyle">Lifestyle</button>
-          <button class="price-tab rounded-full border border-white/12 px-5 py-3 text-xs uppercase tracking-[.16em] text-white/66 transition" data-price="marketing">Marketing</button>
-          <button class="price-tab rounded-full border border-white/12 px-5 py-3 text-xs uppercase tracking-[.16em] text-white/66 transition" data-price="video">Video / CGI</button>
-        </div>
-
-      <div id="priceCard" class="reveal mx-auto max-w-4xl rounded-[2.4rem] border border-white/10 bg-white/[.035] p-7 md:p-10">
-      <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-  <div class="price-main-panel">
-    <p id="priceLabel" class="text-xs uppercase tracking-[.26em] text-gold">PACKSHOT</p>
-    <h3 id="priceTitle" class="mt-4 text-5xl font-light tracking-[-.08em] text-white">From CHF 80/photo</h3>
-    <p id="priceDescription" class="mt-6 max-w-2xl text-base leading-8 text-white/58">Clean, technical and premium product images designed for e-commerce, catalogues and brand presentations.</p>
-  </div>
-            <div class="rounded-[1.5rem] border border-white/10 bg-white/[.04] p-6 text-right">
-              <p class="text-xs uppercase tracking-[.2em] text-white/42">Package</p>
-              <p id="pricePackage" class="mt-3 text-2xl font-light text-white">Pack of 4 for CHF 1000</p>
-            </div>
-          </div>
-          <div id="priceFeatures" class="mt-8 grid gap-3 md:grid-cols-3">
-            <div class="rounded-[1.25rem] border border-white/10 bg-black/20 p-5 text-sm text-white/62">Controlled lighting</div>
-            <div class="rounded-[1.25rem] border border-white/10 bg-black/20 p-5 text-sm text-white/62">Dust and reflection retouching</div>
-            <div class="rounded-[1.25rem] border border-white/10 bg-black/20 p-5 text-sm text-white/62">Web-ready export</div>
+      <section class="gallery-zone" aria-label="Galerie Michaelens Studio">
+        <div class="carousel-shell">
+          <div class="carousel-track" id="carouselTrack">
+            <figure class="photo-card"><img src="image/bg.png" alt="Photo Michaelens Studio 1"></figure>
+            <figure class="photo-card"><img src="image/bg2.png" alt="Photo Michaelens Studio 2"></figure>
+            <figure class="photo-card"><img src="image/bg3.png" alt="Photo Michaelens Studio 3"></figure>
+            <figure class="photo-card"><img src="image/bg4.png" alt="Photo Michaelens Studio 4"></figure>
+            <figure class="photo-card"><img src="image/bg5.png" alt="Photo Michaelens Studio 5"></figure>
+            <figure class="photo-card"><img src="image/bg6.png" alt="Photo Michaelens Studio 6"></figure>
+            <figure class="photo-card"><img src="image/bg7.png" alt="Photo Michaelens Studio 7"></figure>
+            <figure class="photo-card"><img src="image/bg8.png" alt="Photo Michaelens Studio 8"></figure>
           </div>
         </div>
-      </div>
-    </section>
+     
+      </section>
+    </main>
 
-    <section id="contact" class="relative overflow-hidden px-5 py-24 md:px-8 md:py-32">
-      <div class="absolute inset-0 opacity-50">
-        <img class="h-full w-full object-cover" src="image/contact.png" alt="Contact background" onerror="this.src='https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?auto=format&fit=crop&q=80&w=1800';" />
-      </div>
-      <div class="absolute inset-0 bg-black/76"></div>
-      <div class="relative z-10 mx-auto grid max-w-7xl gap-10 md:grid-cols-[.9fr_1.1fr] md:items-center">
-        <div>
-          <p class="reveal mb-5 text-xs uppercase tracking-[.28em] text-gold">Contact</p>
-          <h2 class="reveal text-5xl font-light tracking-[-.08em] text-white md:text-7xl">Let’s shape your next visual campaign.</h2>
-          <p class="reveal mt-7 max-w-xl text-base leading-8 text-white/60">Send the brief, product type, number of visuals needed and expected usage. The studio will respond with a tailored estimate.</p>
-        </div>
+    <div class="panel-label">01 / Accueil</div>
 
-        <form class="reveal contact-glass rounded-[2.4rem] p-6 md:p-8" action="mailto:michael.tcha@gmail.com" method="post" enctype="text/plain">
-          <div class="grid gap-4 md:grid-cols-2">
-            <label class="block">
-              <span class="mb-2 block text-xs uppercase tracking-[.18em] text-white/42">Name</span>
-              <input name="Name" required class="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-white outline-none transition placeholder:text-white/25 focus:border-gold" placeholder="Your name" />
-            </label>
-            <label class="block">
-              <span class="mb-2 block text-xs uppercase tracking-[.18em] text-white/42">Email</span>
-              <input type="email" name="Email" required class="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-white outline-none transition placeholder:text-white/25 focus:border-gold" placeholder="your@email.com" />
-            </label>
-          </div>
-          <label class="mt-4 block">
-            <span class="mb-2 block text-xs uppercase tracking-[.18em] text-white/42">Project type</span>
-            <select name="Project type" class="w-full rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-white outline-none transition focus:border-gold">
-              <option>Product Packshot</option>
-              <option>Product Lifestyle</option>
-              <option>Marketing Images</option>
-              <option>Events</option>
-              <option>Portrait</option>
-              <option>Animals</option>
-              <option>Video / CGI</option>
-            </select>
-          </label>
-          <label class="mt-4 block">
-            <span class="mb-2 block text-xs uppercase tracking-[.18em] text-white/42">Message</span>
-            <textarea name="Message" rows="6" required class="w-full resize-none rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-white outline-none transition placeholder:text-white/25 focus:border-gold" placeholder="Tell me about the product, quantity of images, deadline and usage."></textarea>
-          </label>
-          <button class="mt-5 w-full rounded-full bg-white px-7 py-4 text-sm font-semibold text-black transition hover:bg-gold" type="submit">Send inquiry</button>
-          <p class="mt-4 text-center text-xs text-white/38">This opens your email client and sends to michael.tcha@gmail.com</p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="border-t border-white/10 px-5 py-10 md:px-8">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 text-sm text-white/42 md:flex-row md:items-center md:justify-between">
-      <p>Michael Tcha Photography Studio</p>
-      <p>Copyright Webdesign Julie Amouzegar Kim</p>
+    <div class="side-index" aria-hidden="true">
+      <span id="currentIndex">01</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span>08</span>
     </div>
-  </footer>
-<div id="portfolioLightbox" class="portfolio-lightbox">
-  <button id="portfolioLightboxClose" class="portfolio-lightbox__close" type="button">×</button>
-  <img id="portfolioLightboxImg" src="" alt="">
-</div>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox-close" type="button" aria-label="Fermer">×</button>
+      <img id="lightboxImage" src="" alt="">
+    </div>
+  </div>
+
   <script>
-    gsap.registerPlugin(ScrollTrigger);
+    const root = document.documentElement;
+    const videoStage = document.getElementById('videoStage');
+    const progressFill = document.getElementById('progressFill');
+    const currentIndex = document.getElementById('currentIndex');
+    const cards = Array.from(document.querySelectorAll('.photo-card'));
+    const totalCards = cards.length;
+    const carouselShell = document.querySelector('.carousel-shell');
+    const carouselTrack = document.querySelector('.carousel-track');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.querySelector('.lightbox-close');
 
-    const nav = document.getElementById('siteNav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) nav.classList.add('nav-scrolled');
-      else nav.classList.remove('nav-scrolled');
-    });
+    function setVh() {
+      root.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    }
 
-    const overlay = document.getElementById('menuOverlay');
-    const openMenu = document.getElementById('menuToggle');
-    const closeMenu = document.getElementById('menuClose');
-    const overlayLinks = document.querySelectorAll('.overlay-link');
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
 
-    openMenu.addEventListener('click', () => overlay.classList.add('open'));
-    closeMenu.addEventListener('click', () => overlay.classList.remove('open'));
-   overlayLinks.forEach(link => {
-  link.addEventListener('click', function () {
-    overlay.classList.remove('open');
-  });
-});
+    function smoothStep(edge0, edge1, value) {
+      const t = clamp((value - edge0) / (edge1 - edge0), 0, 1);
+      return t * t * (3 - 2 * t);
+    }
 
-    gsap.from('.hero-title', {
-      y: 80,
-      opacity: 0,
-      duration: 1.25,
-      ease: 'power4.out',
-      delay: .25
-    });
+    function pad(number) {
+      return String(number).padStart(2, '0');
+    }
 
-    gsap.to('.hero-bg', {
-      yPercent: 12,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#top',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
+    function getCarouselStartPx() {
+      const styles = getComputedStyle(carouselTrack);
+      return parseFloat(styles.paddingLeft) || 0;
+    }
 
-    gsap.utils.toArray('.reveal').forEach((el) => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 86%'
-        }
+    function updateCarousel(progress) {
+      const startOffset = getCarouselStartPx();
+      const maxCarouselX = Math.max(0, carouselTrack.scrollWidth - carouselShell.clientWidth);
+     const travel = maxCarouselX;
+      root.style.setProperty('--carousel-x', `${(travel * progress).toFixed(2)}px`);
+    }
+
+    function render() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const rawProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const progress = clamp(rawProgress, 0, 1);
+
+      const videoShouldBeOut = progress >= .18;
+      const carouselOpacity = smoothStep(.38, .50, progress);
+      const carouselProgress = smoothStep(.48, 1, progress);
+      const activePhoto = Math.round(carouselProgress * (totalCards - 1)) + 1;
+
+      videoStage.classList.toggle('is-out', videoShouldBeOut);
+      root.style.setProperty('--carousel-opacity', carouselOpacity.toFixed(4));
+      root.style.setProperty('--carousel-progress', carouselProgress.toFixed(4));
+      updateCarousel(carouselProgress);
+
+      progressFill.style.width = `${Math.max(8, carouselProgress * 100)}%`;
+      currentIndex.textContent = pad(activePhoto);
+
+      cards.forEach((card, index) => {
+        const y = Math.sin((index + carouselProgress * 3.4) * 1.55) * 18;
+        card.style.setProperty('--card-offset', (y / 18).toFixed(3));
+      });
+    }
+
+    let ticking = false;
+
+    function requestRender() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        render();
+        ticking = false;
+      });
+    }
+
+    cards.forEach(card => {
+      const img = card.querySelector('img');
+      card.addEventListener('click', () => {
+        lightboxImage.src = img.currentSrc || img.src;
+        lightboxImage.alt = img.alt || '';
+        lightboxImage.onload = () => {
+          lightboxImage.style.setProperty('--natural-width', `${lightboxImage.naturalWidth}px`);
+          lightboxImage.style.setProperty('--natural-height', `${lightboxImage.naturalHeight}px`);
+        };
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
       });
     });
 
-    gsap.utils.toArray('.parallax-img').forEach((img) => {
-      gsap.to(img, {
-        yPercent: -10,
-        scale: 1.08,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: img.closest('section') || img,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true
-        }
-      });
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
     });
 
-const beforeAfter = document.getElementById('beforeAfter');
-const beforeLayer = document.getElementById('beforeLayer');
-const sliderHandle = document.getElementById('sliderHandle');
+    setVh();
+    render();
 
-let isDragging = false;
-
-function syncBeforeImageWidth() {
-  beforeAfter.style.setProperty('--ba-width', beforeAfter.offsetWidth + 'px');
-}
-
-function updateSlider(clientX) {
-  const rect = beforeAfter.getBoundingClientRect();
-  let percent = ((clientX - rect.left) / rect.width) * 100;
-  percent = Math.max(0, Math.min(100, percent));
-
-  beforeLayer.style.width = percent + '%';
-  sliderHandle.style.left = percent + '%';
-}
-
-syncBeforeImageWidth();
-window.addEventListener('resize', syncBeforeImageWidth);
-
-beforeAfter.addEventListener('mousedown', function(e) {
-  isDragging = true;
-  updateSlider(e.clientX);
-});
-
-window.addEventListener('mousemove', function(e) {
-  if (!isDragging) return;
-  updateSlider(e.clientX);
-});
-
-window.addEventListener('mouseup', function() {
-  isDragging = false;
-});
-
-beforeAfter.addEventListener('touchstart', function(e) {
-  isDragging = true;
-  updateSlider(e.touches[0].clientX);
-}, { passive: true });
-
-window.addEventListener('touchmove', function(e) {
-  if (!isDragging) return;
-  updateSlider(e.touches[0].clientX);
-}, { passive: true });
-
-window.addEventListener('touchend', function() {
-  isDragging = false;
-});
-
-beforeAfter.addEventListener('click', function(e) {
-  updateSlider(e.clientX);
-});
-const filterButtons = document.querySelectorAll('.filter-btn');
-const galleryCards = document.querySelectorAll('.gallery-card');
-
-filterButtons.forEach(button => {
-  button.addEventListener('click', function () {
-    const filter = this.dataset.filter;
-
-    filterButtons.forEach(btn => btn.classList.remove('active'));
-    this.classList.add('active');
-
-    galleryCards.forEach(card => {
-      const category = card.dataset.category;
-      const shouldShow = filter === 'all' || category === filter;
-
-      if (shouldShow) {
-        card.style.display = '';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0) scale(1)';
-      } else {
-        card.style.display = 'none';
-      }
+    window.addEventListener('scroll', requestRender, { passive: true });
+    window.addEventListener('resize', () => {
+      setVh();
+      requestRender();
     });
-
-    ScrollTrigger.refresh();
-  });
-});
-
-    const priceData = {
-      packshot: {
-        label: 'PACKSHOT',
-        title: 'From CHF 80/photo',
-        package: 'Pack of 4 for CHF 1000',
-        description: 'Clean, technical and premium product images designed for e-commerce, catalogues and brand presentations.',
-        features: ['Controlled lighting', 'Dust and reflection retouching', 'Web-ready export']
-      },
-      lifestyle: {
-        label: 'LIFESTYLE',
-        title: 'From CHF 60/photo',
-        package: 'Retouching included',
-        description: 'Product lifestyle visuals with retouching and background integration for social media, web banners and brand storytelling.',
-        features: ['Mood-driven composition', 'Background integration', 'Retouching included']
-      },
-      marketing: {
-        label: 'MARKETING',
-        title: 'From CHF 60/photo',
-        package: 'Realistic integration / CGI backgrounds',
-        description: 'Marketing images built for campaign impact, using realistic integration, premium grading and CGI-inspired background work.',
-        features: ['Campaign concept', 'Realistic integration', 'Premium color grading']
-      },
-      video: {
-        label: 'VIDEO / CGI',
-        title: 'Quote on request',
-        package: 'Tailored production',
-        description: 'Video, motion assets and CGI-oriented visuals are estimated according to storyboard, duration, complexity and delivery format.',
-        features: ['Storyboard estimate', 'Motion direction', 'Custom delivery']
-      }
-    };
-
-    const priceTabs = document.querySelectorAll('.price-tab');
-    const priceLabel = document.getElementById('priceLabel');
-    const priceTitle = document.getElementById('priceTitle');
-    const priceDescription = document.getElementById('priceDescription');
-    const pricePackage = document.getElementById('pricePackage');
-    const priceFeatures = document.getElementById('priceFeatures');
-    const priceCard = document.getElementById('priceCard');
-
-    priceTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        priceTabs.forEach(item => item.classList.remove('active'));
-        tab.classList.add('active');
-        const data = priceData[tab.dataset.price];
-
-        gsap.to(priceCard, {
-          opacity: 0,
-          y: 18,
-          duration: .22,
-          onComplete: () => {
-            priceLabel.textContent = data.label;
-            priceTitle.textContent = data.title;
-            priceDescription.textContent = data.description;
-            pricePackage.textContent = data.package;
-            priceFeatures.innerHTML = data.features.map(feature => `<div class="rounded-[1.25rem] border border-white/10 bg-black/20 p-5 text-sm text-white/62">${feature}</div>`).join('');
-            gsap.to(priceCard, { opacity: 1, y: 0, duration: .42, ease: 'power2.out' });
-          }
-        });
-      });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        setVh();
+        requestRender();
+      }, 250);
     });
-
-const portfolioLightbox = document.getElementById('portfolioLightbox');
-const portfolioLightboxImg = document.getElementById('portfolioLightboxImg');
-const portfolioLightboxClose = document.getElementById('portfolioLightboxClose');
-
-document.querySelectorAll('#gallery .gallery-card img').forEach((img) => {
-  img.style.cursor = 'zoom-in';
-
-  img.addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const fullImageSrc = this.currentSrc || this.src;
-
-    portfolioLightboxImg.src = fullImageSrc;
-    portfolioLightboxImg.alt = this.alt || 'Portfolio image';
-
-    portfolioLightbox.classList.add('is-open');
-    portfolioLightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  });
-});
-
-function closePortfolioLightbox() {
-  portfolioLightbox.classList.remove('is-open');
-  portfolioLightbox.setAttribute('aria-hidden', 'true');
-  portfolioLightboxImg.src = '';
-  document.body.style.overflow = '';
-}
-
-portfolioLightboxClose.addEventListener('click', closePortfolioLightbox);
-
-portfolioLightbox.addEventListener('click', function (e) {
-  if (e.target === portfolioLightbox) {
-    closePortfolioLightbox();
-  }
-});
-
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'Escape' && portfolioLightbox.classList.contains('is-open')) {
-    closePortfolioLightbox();
-  }
-});
   </script>
-
 </body>
 </html>
