@@ -1,391 +1,666 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Michaelens Studio | En construction</title>
-  <link rel="icon" type="image/png" href="image/fav.png" />
+ChatGPT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+image(137).png
+make a complete htlm css code, I will put images in a folder call 'image', It is for Michaelens studio I have a logo so for the logo that you have to put on top you put the logo will be in image folder and is called 'logo.png', Same the background image will be called 'bg,png'. You put these informations ' The website is currently en cours enc onstruction (In french) pour me contacter : EN dessosus un jolie image vector minimal de mail: michaelens-studio.ch   J aimerai le background s anime en parallax comme sur cet exemple: https://artemsemkin.com/rhye/wp/slider-1-distortion-h/ EN gros quand tu scrolles down ca fait ce meme effet et du coup les backgrounds changent (Tu me mettra en placeholder bg.png bg2.png etc y aura 8 backgrounds et sur les 8 y aura une animation en .mp4 qui s appelle video.mp4
+
+Thought for 1m 20s
+J’ai mis le code complet dans le canvas en un seul fichier HTML.
+
+À faire côté dossier :
+
+Ton fichier doit s’appeler par exemple index.html.
+
+Structure :
+
+/index.html
+/image/logo.png
+/image/bg.png
+/image/bg2.png
+/image/bg3.png
+/image/bg4.png
+/image/video.mp4
+/image/bg5.png
+/image/bg6.png
+/image/bg7.png
+J’ai corrigé en bg.png, pas bg,png, car une virgule dans un nom de fichier est possible mais peu propre.
+
+Pour le mail, j’ai mis :
+
+contact@michaelens-studio.ch
+Dans ton message tu avais écrit michaelens-studio.ch, mais pour un contact mail il faut normalement une adresse complète.
+
+
+ca va pas, quand tu scrolles c cense faire un effet parallax comme sur mon site en exemple donc l ecran doit toujours rester en plac ca doit pas aller vers le bas genre le site c comme si ct une section mais l effet scroll va animer et montrer les sections suivantes qui viennent remplacer etc comme sur mon lien d exemple. ENsuite fait gaffe ca doit etre reponsive.
+
+Thought for 25s
+J’ai modifié le code dans le canvas.
+
+Changements faits :
+
+Le logo est maintenant nettement plus grand, avec une taille adaptée aussi sur mobile.
+
+La transition au scroll est plus douce : les sections arrivent maintenant en slide vertical avec blur progressif, plutôt qu’un simple remplacement brusque. Le background suit aussi avec un mouvement vertical plus smooth et moins agressif.
+
+L’encart mail est maintenant en glassmorphism : blur plus fort, transparence, coins arrondis, reflet interne, léger highlight et profondeur.
+
+
+Thought for 1m 45s
+J’ai modifié le code.
+
+Maintenant l’animation n’est plus une transition continue qui suit chaque pixel du scroll. Elle se déclenche quand tu passes environ la moitié entre deux sections :
+
+Quand tu scrolles vers le bas, la slide suivante arrive depuis le bas en slide-in up, avec blur progressif et courbe douce.
+
+Quand tu scrolles vers le haut, la slide précédente revient depuis le haut en slide-in down.
+
+J’ai utilisé une transition plus longue avec une courbe type :
+
+cubic-bezier(.16, 1, .3, 1)
+C’est le genre de courbe qui donne un mouvement plus premium, avec un départ net puis un ralentissement très doux. Le fond suit la même logique, avec blur et scale.
+
+
+Thought for 34s
+C’est modifié.
+
+J’ai supprimé complètement l’effet grain/noise.
+
+À la place, j’ai ajouté une bande horizontale glassmorphism uniquement derrière la zone de texte : blur doux, overlay noir minimal, léger reflet transparent et bords fondus pour éviter l’effet “rectangle posé”.
+
+Sur mobile, la bande descend avec le texte en bas de l’écran, au lieu de rester centrée.
+
+
+les titres sont troip grand, et en fait je voulais pas dire brande orintontal ais bande vertical, Un seul bande verticale ou y a les titres et textes, cette bande doit etre en glass morphism sans outline, Surtout aucun overly sur l image de bg
+
+Thought for 19s
+J’ai modifié le code.
+
+Les titres sont maintenant plus petits, avec une taille moins massive sur desktop et mobile.
+
+J’ai supprimé l’overlay global sur le background. L’image de fond n’a plus de voile appliqué sur toute la page.
+
+La zone derrière le texte est maintenant une bande verticale en glassmorphism, sans outline. Elle se place du côté du texte : à gauche pour les slides alignées à gauche, à droite pour les slides alignées à droite. Sur mobile, elle devient une zone basse plus naturelle pour garder la lisibilité.
+
+
+image(138).png
+nan regarde: En jaune j ai entourer les sections de texte prennent trop de place (En width) Et les titres sont vtjr trop grand. Le glass moirphsim doit etre une bande verticel qui recouvre la aprtie que  ai dessiner en orange
+
+Thought for 48s
+Je n’ai pas réussi à appliquer automatiquement la modification dans le canvas. J’ai tenté de réduire la largeur du bloc texte, de réduire les titres, et de remplacer la zone glassmorphism par une bande verticale à gauche, mais la mise à jour a échoué sur un sélecteur mobile qui ne correspondait plus au code actuel.
+
+À faire dans ton CSS :
+
+Remplace le bloc h1 par ceci :
+
+h1 {
+  font-size: clamp(30px, 3.6vw, 62px);
+  line-height: .96;
+  letter-spacing: -.04em;
+  font-weight: 700;
+  text-transform: uppercase;
+  max-width: 430px;
+  text-wrap: balance;
+}
+Remplace .slide-content par ceci :
+
+.slide-content {
+  width: min(430px, 100%);
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  z-index: 1;
+}
+Remplace .slide::before et .slide:nth-child(even)::before par ceci :
+
+.slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: clamp(380px, 31vw, 540px);
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.36) 58%, rgba(0,0,0,.10) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.050), rgba(255,255,255,.012));
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 78%, transparent 100%);
+  mask-image: linear-gradient(to right, black 0%, black 78%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide:nth-child(even)::before {
+  left: auto;
+  right: 0;
+  background:
+    linear-gradient(270deg, rgba(0,0,0,.58) 0%, rgba(0,0,0,.36) 58%, rgba(0,0,0,.10) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.050), rgba(255,255,255,.012));
+  -webkit-mask-image: linear-gradient(to left, black 0%, black 78%, transparent 100%);
+  mask-image: linear-gradient(to left, black 0%, black 78%, transparent 100%);
+}
+Et remplace les tailles du texte descriptif par :
+
+.lead,
+.note {
+  margin-top: 24px;
+  max-width: 410px;
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1.55;
+  color: rgba(247, 243, 236, .76);
+}
+Pour le mobile, mets le h1 comme ça dans le media query :
+
+h1 {
+  font-size: clamp(30px, 9.8vw, 46px);
+  line-height: .98;
+  letter-spacing: -.035em;
+  max-width: 340px;
+}
+Résultat attendu : le texte ne déborde plus autant vers la montre, les titres sont plus contenus, et la bande glassmorphism reste vraiment une colonne verticale sur la partie orange que tu as dessinée, sans overlay global sur l’image de fond.
+
+
+le mail est trop grand font, et y a toujours un overlay bizarre comme un truc rayer
+
+Thought for 9s
+J’ai modifié le canvas.
+
+Le font du mail est réduit :
+
+font-size: clamp(13px, 1.15vw, 18px);
+Et sur mobile :
+
+font-size: clamp(12px, 4.2vw, 16px);
+J’ai aussi supprimé l’effet rayé/glitch sur les images et les titres. Le truc venait des pseudo-éléments media-layer::before / ::after avec un repeating-linear-gradient, donc il n’y a plus cet overlay parasite pendant les transitions.
+
+
+image looks bad quality
+
+Thought for 12s
+J’ai corrigé ça dans le canvas.
+
+Le problème venait surtout de ces points :
+
+L’image était zoomée avec scale(1.02) à scale(1.10), donc elle perdait visuellement en netteté.
+
+Il y avait aussi des filtres contrast, saturate et blur appliqués sur les backgrounds pendant certaines phases.
+
+J’ai modifié pour que l’image active soit affichée en qualité plus propre :
+
+transform: scale(1);
+filter: none;
+Et j’ai réduit fortement les effets de blur/scale pendant les transitions pour garder une animation smooth sans dégrader l’image.
+
+
+les images ont tjr l air super floues... alors qu elles sont nettes c du 1920 1080 paysage en 72 dpi mais sur photoshop c net sur le site c super flou
+
+Thought for 23s
+J’ai modifié le canvas.
+
+J’ai supprimé tous les blur CSS appliqués aux images de background, y compris pendant les transitions. Maintenant, les backgrounds ne reçoivent plus de filter: blur() du tout. L’animation reste sur l’opacité et le mouvement, mais sans dégrader la netteté.
+
+Point important : le 72 dpi ne change rien sur un site web. Ce qui compte, c’est la taille en pixels. 1920x1080 est net si l’image est affichée proche de 1920 px de large. Sur un écran 4K, Retina, ou si le navigateur affiche l’image plus grande que sa résolution réelle, elle peut paraître molle. Pour un hero plein écran premium, exporte plutôt les backgrounds en 3840x2160 ou au minimum 2560x1440.
+
+Mais côté code, il n’y a maintenant plus de blur appliqué aux images.
+
+
+en fait desole mais tu peux tout refaire mon site je pense mettre en les images ca joue pas ca fait degueulasse la qualite, le mieux est : Tu ne mets pas des sections avec texte. Le site s ouvre sur la video par defaut (Avec l;e meme layuot tu garde que les infos texte et le layout de la page 1, ensuite quand tu srcolles down, ce texte et ce layout ne change pas s implement la video slide-in smoothly down, et apres t a un genre de carousel moderne avec des photos en paysage ou portrait (Ca doit s adapter a l;a photo) Sachant que ce sera tjr du 9;16 en ratio (La pour le moment y a que du landscape), les images s affichent 3 par 3, je vais ajouter une 9eme image. Faut que le carousel soit moderne, il doit pas prendre toute la taille de l ecran mais se placer sur la droite de lka zone ou t as le texte. Tu gardes vraiment le layout pareil juste t a ce carousel avec effet scroll parallax et ca fit tournr le carousel quand tu scroll down jsp si t as compris
+
+Thought for 1m 10s
+J’ai refait le site dans le canvas.
+
+Le nouveau fonctionnement :
+
+La page s’ouvre directement sur image/video.mp4 en background plein écran. Le layout de base reste fixe : logo, titre “Site en construction”, texte et mail.
+
+Quand tu scrolles, le texte ne change plus. La vidéo glisse doucement vers le bas et s’efface partiellement.
+
+Ensuite, un carousel moderne arrive à droite du texte. Il affiche les photos en cartes verticales, 3 visibles environ en même temps, avec un mouvement parallax piloté par le scroll.
+
+Les images attendues sont :
+
+/image/photo1.png
+/image/photo2.png
+/image/photo3.png
+/image/photo4.png
+/image/photo5.png
+/image/photo6.png
+/image/photo7.png
+/image/photo8.png
+/image/photo9.png
+Pour éviter l’effet flou, je n’ai mis aucun blur CSS sur les images du carousel. Les cartes utilisent object-fit: cover, donc les images portrait 9:16 seront propres.
+
+
+ouais nan la video elle part pas de ; ecran elle doit vraimnt slide down et disparaitre genre, et le carousel c que des photos PAYSAGE et le nom bg.png etc jusque 8. 
+
+Thought for 59s
+J’ai refait la structure dans le canvas.
+
+La vidéo slide maintenant vraiment vers le bas et sort de l’écran. Elle n’est plus seulement déplacée légèrement ou masquée.
+
+Le carousel utilise maintenant uniquement des images paysage, en ratio 16:9, avec ces noms :
+
+image/bg.png
+image/bg2.png
+image/bg3.png
+image/bg4.png
+image/bg5.png
+image/bg6.png
+image/bg7.png
+image/bg8.png
+J’ai retiré l’ancienne logique photo1.png, etc. Le compteur est aussi repassé sur 8 images.
+
+
+image(139).png
+ok good, is it possible that when we click on each image of carousel they open separately in original fromat (MNOT INCREASED FORMAT OR IT WILL BE BLURRED !), and the carousel section 1. Should not be overlayed with black, 2. The last image is stuck on the right and we can not see it, 3. SHould take more place in ratio it should take like the red cadre 
+
+Thought for 30s
+C’est modifié.
+
+Les images du carousel sont maintenant cliquables. Au clic, l’image s’ouvre seule dans une lightbox, sans upscale forcé. Elle garde sa taille naturelle si elle rentre dans l’écran, sinon elle est seulement réduite pour rentrer dans la fenêtre.
+
+J’ai aussi retiré l’overlay noir sur les images du carousel. Les cartes ne devraient plus être assombries.
+
+Le carousel prend plus de place sur la droite : cartes plus grandes, zone plus haute, plus proche de ton cadre rouge.
+
+Pour la dernière image, j’ai remplacé le déplacement en pourcentage par un calcul réel en pixels avec JavaScript. Le carousel se déplace maintenant jusqu’à la vraie fin du track, donc bg8.png ne devrait plus rester bloquée hors champ.
+
+
+the images are in wrong format.... SHOULD BE LANDSCAPE !!!!! , plus on the video part th blur background of text section is not going until the top of screen it is stopping, and last quaestion: In carousel page, i would like that the carousel goes under the text section but with the same blurred bg effect of the first animation entrance
+
+image(140).png
+image(141).png
+is too dark + the opvberlay behing text is too short and the corner should not be smooth but lisse, + when we scroll down during video slide, it should at the middle of scroll just animate and smoothly slide down
+
+image(142).png
+ca bug on voit le carousel sur le premier slide, + c toujours hyper sombre les premieres images du carousel ca devrait pas etre sombre
+
+image(143).png
+ok une erniere question ce qui serait vraiment TOP c'est que le carousel demarre (Une fois qu on a slide la video) a partir du trait rouge, mais apres en slide il peut aller derriere le texte comme tu as bien fait mais juste ca fait bizarre que quand on voit le carousel pour la premiere fois ca demarre couper comme ca 
+
+Thought for 26s
+Oui, j’ai compris. Il faut que le carousel apparaisse d’abord après la bande texte, vers ton trait rouge, puis seulement ensuite qu’il puisse glisser sous la bande glassmorphism pendant le scroll.
+
+J’ai tenté de modifier le canvas directement, mais la mise à jour a échoué sur le bloc responsive mobile qui a déjà changé dans le code actuel. Voici les changements précis à appliquer dans ton CSS.
+
+Dans .gallery-zone, remplace :
+
+left: clamp(300px, 24vw, 430px);
+par :
+
+left: clamp(540px, 42vw, 760px);
+Puis remplace :
+
+transform: translate3d(calc(var(--carousel-progress) * -92px), calc((1 - var(--carousel-progress)) * 54px), 0);
+par :
+
+transform: translate3d(calc(var(--carousel-progress) * -300px), calc((1 - var(--carousel-progress)) * 54px), 0);
+Et dans le @media (max-width: 1180px), remplace :
+
+left: clamp(270px, 31vw, 390px);
+par :
+
+left: clamp(430px, 46vw, 580px);
+Ce réglage fait exactement ça : au moment où le carousel apparaît, sa première image commence plus à droite, donc elle n’est plus coupée par le texte. Ensuite, quand tu continues à scroller, tout le carousel se décale vers la gauche et peut passer sous la zone texte comme tu voulais.
+
+
+image(144).png
+ouais mais c mieux mais la y a comme un masque qui coupe alors que devrait meme pas y avoir ca le carousel passe juste en dessous de la bande de texte et de l overlay mais ne doit jamais etre couper
+
+Thought for 23s
+J’ai corrigé dans le canvas.
+
+Le problème venait de deux choses :
+
+Le carousel-shell avait overflow: hidden, donc dès qu’une image passait vers la gauche, elle était coupée net.
+
+La bande glassmorphism avait une fin trop dure, donc elle créait une séparation verticale visible.
+
+J’ai changé :
+
+overflow: hidden;
+en :
+
+overflow: visible;
+Et j’ai élargi la bande floue avec un vrai fondu progressif vers la droite, pour que le carousel puisse passer dessous sans être coupé visuellement.
+
+Maintenant les images doivent glisser sous la zone texte/blur, sans masque net qui coupe la carte.
+
+
+Nan la ca a tout niquer le carousel ne slide plus aussi smooth qu avant la ca fait trop bizarre et l image demarre encore trop tot c trop bizarre
+
+Thought for 34s
+Je vois le problème. Là, le carousel a perdu le comportement naturel parce qu’il a été trop décalé et parce que j’ai modifié l’overflow/zone de départ de manière trop agressive.
+
+J’ai tenté de corriger directement dans le canvas, mais la mise à jour a échoué sur une ligne CSS qui n’existe plus exactement dans le code actuel. Le bon réglage à appliquer est celui-ci :
+
+Dans .gallery-zone, enlève le déplacement horizontal de la zone entière. Il faut éviter ça :
+
+transform: translate3d(calc(var(--carousel-progress) * -300px), calc((1 - var(--carousel-progress)) * 54px), 0);
+Remplace par :
+
+transform: translate3d(0, calc((1 - var(--carousel-progress)) * 54px), 0);
+Ensuite, dans .gallery-zone, règle le départ plus loin à droite :
+
+left: clamp(520px, 42vw, 760px);
+Dans .carousel-track, ajoute un vrai espace de départ :
+
+padding-left: clamp(120px, 10vw, 210px);
+Et dans le JS, retarde l’apparition :
+
+const carouselOpacity = smoothStep(.56, .66, progress);
+const carouselProgress = smoothStep(.56, 1, progress);
+Ce que ça corrige :
+
+Le carousel ne démarre plus trop tôt.
+
+La première image n’apparaît plus coupée dès le départ.
+
+Le mouvement redevient plus naturel parce qu’on ne déplace plus toute la zone carousel en même temps que le track. Seul le track slide, ce qui est plus propre.
+
+
+bravo maintenant on ne peut juste plus du tout slider les images ca marche plus c tout casser
+
+Thought for 1m 3s
+J’ai remis un code complet propre dans le canvas.
+
+Le slider fonctionne de nouveau avec une logique stable :
+
+Le carousel occupe toute la largeur de l’écran, mais les images commencent à droite grâce à un padding-left, donc la première image n’apparaît pas coupée.
+
+Ensuite, seul le carousel-track bouge avec le scroll. La zone entière ne bouge plus horizontalement, ce qui évite de casser le slide.
+
+J’ai aussi corrigé le calcul JavaScript du déplacement pour qu’il tienne compte du padding de départ et que le carousel puisse aller jusqu’au bout.
+
+
+image(145).png
+almost perfect  but please one last thing is the overlay blurry behind text should not be so large but should stop around the red line.
+
+Thought for 11s
+C’est modifié.
+
+J’ai réduit la largeur de la bande floue derrière le texte pour qu’elle s’arrête beaucoup plus près de ta ligne rouge.
+
+Avant :
+
+width: clamp(560px, 46vw, 880px);
+Maintenant :
+
+width: clamp(410px, 31vw, 520px);
+J’ai aussi resserré le fondu à droite, pour que la transition soit plus courte et moins envahissante sur le carousel.
+
+
+photo 8 of carousel is couper impossible de voir en entier
+
+Thought for 12s
+C’est corrigé.
+
+Le problème venait du calcul JS : j’avais volontairement retiré une partie du déplacement final avec :
+
+maxCarouselX - startOffset * 0.35
+Donc le carousel s’arrêtait trop tôt et bg8.png restait coupée.
+
+J’ai remplacé par un déplacement complet jusqu’à la fin réelle du carousel :
+
+const travel = maxCarouselX;
+Maintenant la dernière image doit pouvoir arriver entièrement dans la zone visible.
+
+
+je fais comment pour mettre un favicon? ce serait fav.png
+
+Thought for 5s
+Je l’ai ajouté dans le code du canvas.
+
+Le fichier doit être ici :
+
+/image/fav.png
+Et le code ajouté dans le <head> est :
+
+<link rel="icon" type="image/png" href="image/fav.png" />
 <link rel="apple-touch-icon" href="image/fav.png" />
+Idéalement, exporte fav.png en carré, par exemple 512x512 px.
 
-  <style>
-    :root {
-      --bg: #050607;
-      --text: #f7f3ec;
-      --muted: rgba(247, 243, 236, .64);
-      --line: rgba(247, 243, 236, .16);
-      --vh: 1vh;
-      --carousel-opacity: 0;
-      --carousel-progress: 0;
-      --carousel-x: 0px;
-      --carousel-start: clamp(560px, 43vw, 780px);
-    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+tu peux faire en sorte juste que ce site soit responsive car lka des que je reduis taille ecran ou que je passe sur mobile ca fout tout en l air et le truc blurred background prend tellement de place sur l ecran (EN MOBILE) et en petit ecran pc, le texte ressort de ce background
 
-    html {
-      background: var(--bg);
-      scroll-behavior: auto;
-    }
+Thought for 26s
+J’ai corrigé le responsive dans le canvas.
 
-    body {
-      min-height: 360vh;
-      min-height: calc(var(--vh) * 360);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      overflow-x: hidden;
-    }
+Sur petit écran PC, la bande floue est maintenant un peu plus large et le texte est réduit/repositionné pour ne plus sortir du background.
 
-    .fixed-site {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100vh;
-      height: calc(var(--vh) * 100);
-      overflow: hidden;
-      background: #050607;
-      isolation: isolate;
-    }
+Sur mobile, j’ai supprimé la grande bande floue verticale qui prenait trop de place. À la place, le texte a maintenant son propre bloc glassmorphism compact, juste autour du contenu, donc ça ne mange plus tout l’écran.
 
-    .video-stage {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      overflow: hidden;
-      background: #050607;
-      transform: translate3d(0, 0, 0);
-      opacity: 1;
-      will-change: transform, opacity;
-      transition:
-        transform 1250ms cubic-bezier(.16, 1, .3, 1),
-        opacity 950ms cubic-bezier(.16, 1, .3, 1);
-    }
+J’ai aussi réduit les tailles du titre, du texte et du bloc mail sur mobile pour éviter les débordements.
 
-    .video-stage.is-out {
-      transform: translate3d(0, 112vh, 0);
-      opacity: 0;
-    }
 
-    .hero-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+image(148).png
+c trop coller 
 
-    .site-header {
-      position: absolute;
-      z-index: 40;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: clamp(18px, 3vw, 34px) clamp(22px, 4.8vw, 76px);
-      pointer-events: none;
-    }
+image(149).png
+in mobile is too high the blur
 
-    .logo-wrap {
-      display: inline-flex;
-      pointer-events: auto;
-    }
 
-    .logo-wrap img {
-      height: clamp(58px, 7vw, 112px);
-      width: auto;
-      display: block;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.46));
-    }
+Thought for 17s
+J’ai ajusté la version desktop dans le canvas.
 
-    .header-tag {
-      position: absolute;
-      top: clamp(76px, 8.8vw, 120px);
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      letter-spacing: .46em;
-      text-transform: uppercase;
-      color: rgba(247,243,236,.52);
-      white-space: nowrap;
-    }
+J’ai ajouté plus d’espace entre le bloc texte et le carousel, en faisant démarrer le carousel plus à droite sur grand écran :
 
-    .scroll-label {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 10px;
-      letter-spacing: .34em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+--carousel-start: clamp(660px, 50vw, 980px);
+J’ai aussi légèrement réduit les cartes sur desktop pour que l’ensemble respire plus, sans casser le slide du carousel.
 
-    .scroll-label::after {
-      content: "";
-      width: 1px;
-      height: 54px;
-      background: var(--line);
-      display: block;
-      animation: scrollPulse 1.9s ease-in-out infinite;
-    }
 
-    @keyframes scrollPulse {
-      0%, 100% { opacity: .22; transform: scaleY(.65); }
-      50% { opacity: 1; transform: scaleY(1); }
-    }
+image(150).png
+c PARFAIT juste qudn on est en plus petit ecran ca depasse, c tout 
 
-    .content-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-    }
+HTML
 
-    .content-layer::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: clamp(410px, 31vw, 620px);
-      z-index: 3;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.54) 0%, rgba(0,0,0,.34) 54%, rgba(0,0,0,.12) 82%, rgba(0,0,0,0) 100%),
-        linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.010));
-      backdrop-filter: blur(18px) saturate(1.08);
-      -webkit-backdrop-filter: blur(18px) saturate(1.08);
-      pointer-events: none;
-    }
+Thought for 16s
+C’est corrigé dans le HTML/CSS du canvas.
 
-    .text-zone {
-      position: absolute;
-      z-index: 5;
-      left: clamp(26px, 5vw, 78px);
-      top: 50%;
-      width: min(420px, calc(100vw - 52px));
-      transform: translateY(-50%);
-      pointer-events: auto;
-    }
+J’ai ajouté un breakpoint spécial pour les petits écrans desktop, entre mobile et grand écran. Le texte, le titre et le bloc mail se réduisent légèrement, et le carousel démarre plus à droite pour éviter que ça dépasse ou que ça colle au contenu.
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      font-size: clamp(10px, .85vw, 12px);
-      letter-spacing: .34em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
 
-    .eyebrow::before {
-      content: "";
-      width: 42px;
-      height: 1px;
-      background: var(--line);
-    }
+image(151).png
+ ca continue
 
-    h1 {
-      font-size: clamp(30px, 3.4vw, 58px);
-      line-height: .96;
-      letter-spacing: -.04em;
-      font-weight: 700;
-      text-transform: uppercase;
-      max-width: 410px;
-      text-wrap: balance;
-    }
+Thought for 7s
+Oui.
+Ajoute un breakpoint desktop plus agressif pour les écrans intermédiaires.
 
-    .thin {
-      font-weight: 260;
-      letter-spacing: -.035em;
-    }
+Remplace ton bloc :
 
-    .lead {
-      margin-top: 23px;
-      max-width: 398px;
-      font-size: clamp(14px, 1.08vw, 17px);
-      line-height: 1.58;
-      color: rgba(247, 243, 236, .76);
-    }
+@media (min-width: 821px) and (max-width: 1120px) {
+  ...
+}
+par celui-ci :
 
-    .contact-card {
-      margin-top: 30px;
-      width: min(390px, 100%);
-      padding: 16px 18px;
-      border: 0;
-      border-radius: 22px;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.040) 48%, rgba(255,255,255,.070)),
-        rgba(5, 6, 7, .24);
-      backdrop-filter: blur(28px) saturate(1.22);
-      -webkit-backdrop-filter: blur(28px) saturate(1.22);
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      gap: 15px;
-      align-items: center;
-      box-shadow:
-        0 28px 90px rgba(0,0,0,.34),
-        inset 0 1px 0 rgba(255,255,255,.13),
-        inset 0 -1px 0 rgba(255,255,255,.04);
-      overflow: hidden;
-      position: relative;
-    }
+<style>
+@media (min-width: 821px) and (max-width: 1120px) {
+  :root {
+    --carousel-start: clamp(620px, 68vw, 820px);
+  }
 
-    .contact-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 12% 0%, rgba(255,255,255,.18), transparent 34%), linear-gradient(115deg, rgba(255,255,255,.10), transparent 44%);
-      opacity: .58;
-      pointer-events: none;
-    }
+  .content-layer::before {
+    width: clamp(340px, 40vw, 430px);
+  }
 
-    .contact-card > * {
-      position: relative;
-      z-index: 1;
-    }
+  .text-zone {
+    left: clamp(22px, 3.2vw, 36px);
+    width: min(310px, calc(100vw - 70px));
+  }
 
-    .mail-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: rgba(255,255,255,.070);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    }
+  h1 {
+    font-size: clamp(24px, 4.2vw, 40px);
+    max-width: 300px;
+    line-height: 0.98;
+  }
 
-    .mail-icon svg {
-      width: 22px;
-      height: 22px;
-      stroke: var(--text);
-      stroke-width: 1.45;
-      fill: none;
-    }
+  .lead {
+    max-width: 300px;
+    font-size: clamp(12px, 1.25vw, 14px);
+    line-height: 1.5;
+  }
 
-    .contact-small {
-      font-size: 8px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
+  .contact-card {
+    width: min(300px, 100%);
+    padding: 12px 13px;
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 10px;
+    border-radius: 18px;
+  }
 
-    .contact-link {
-      color: var(--text);
-      font-size: clamp(12px, 1.05vw, 16px);
-      line-height: 1.1;
-      text-decoration: none;
-      word-break: break-word;
-    }
+  .mail-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
 
-    .gallery-zone {
-      position: absolute;
-      z-index: 1;
-      inset: 8vh 0 7vh 0;
-      opacity: var(--carousel-opacity);
-      transform: translate3d(0, calc((1 - var(--carousel-progress)) * 54px), 0);
-      pointer-events: auto;
-      will-change: transform, opacity;
-    }
+  .contact-link {
+    font-size: clamp(10.5px, 1.1vw, 13px);
+    overflow-wrap: anywhere;
+  }
 
-    .carousel-shell {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-    }
+  .gallery-zone {
+    inset: 8vh 0 7vh 0;
+  }
 
-    .carousel-track {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      gap: clamp(22px, 2.4vw, 40px);
-      transform: translate3d(calc(var(--carousel-x) * -1), 0, 0);
-      transition: transform 120ms linear;
-      will-change: transform;
-      padding-left: var(--carousel-start);
-      padding-right: clamp(34px, 5vw, 90px);
-    }
+  .photo-card {
+    flex: 0 0 clamp(280px, 33vw, 380px);
+    width: clamp(280px, 33vw, 380px);
+  }
+}
 
-    .photo-card {
-      position: relative;
-      flex: 0 0 clamp(360px, 30vw, 560px);
-      width: clamp(360px, 30vw, 560px);
-      aspect-ratio: 16 / 9;
-      border-radius: 24px;
-      overflow: hidden;
-      background: rgba(255,255,255,.04);
-      box-shadow: 0 30px 82px rgba(0,0,0,.26);
-      transform: translate3d(0, calc(var(--card-offset) * 18px), 0);
-      opacity: 1;
-      will-change: transform;
-      cursor: zoom-in;
-    }
+@media (min-width: 821px) and (max-width: 940px) {
+  :root {
+    --carousel-start: clamp(660px, 78vw, 900px);
+  }
 
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      image-rendering: auto;
-    }
+  .content-layer::before {
+    width: clamp(300px, 38vw, 360px);
+  }
 
-    .gallery-caption {
-      position: absolute;
-      right: clamp(18px, 3vw, 42px);
-      bottom: clamp(8px, 2vh, 22px);
-      z-index: 4;
-      font-size: 10px;
-      letter-spacing: .34em;
-      text-transform: uppercase;
-      color: rgba(247,243,236,.50);
-      pointer-events: none;
-    }
+  .text-zone {
+    left: 20px;
+    width: min(280px, calc(100vw - 50px));
+  }
 
-    .side-index {
-      position: absolute;
-      right: clamp(20px, 4vw, 64px);
-      bottom: clamp(24px, 5vw, 62px);
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      pointer-events: none;
-    }
+  h1 {
+    font-size: clamp(22px, 4vw, 34px);
+    max-width: 270px;
+  }
 
-    .progress-track {
-      width: 92px;
-      height: 1px;
-      background: var(--line);
-      position: relative;
-      overflow: hidden;
-    }
+  .lead {
+    max-width: 270px;
+    font-size: 12px;
+  }
 
-    .progress-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 0%;
-      background: var(--text);
-      transition: width 120ms linear;
-    }
+  .contact-card {
+    width: min(280px, 100%);
+  }
 
-    .panel-label {
-      position: absolute;
-      left: clamp(18px, 4vw, 62px);
-      bottom: clamp(22px, 4vw, 58px);
+  .photo-card {
+    flex: 0 0 clamp(250px, 31vw, 320px);
+    width: clamp(250px, 31vw, 320px);
+  }
+}
+</style>
+Ce que ça corrige :
+
+le texte prend moins de place sur petit écran desktop
+
+la bande floue est plus étroite
+
+le carousel démarre plus à droite
+
+les cartes du carousel sont un peu plus petites
+
+le bloc mail ne déborde plus
+
+Si tu veux, je peux aussi te redonner le HTML complet entier avec ces corrections déjà intégrées.
+
+
+bah ca marche pas
+
+Thought for 1m 5s
+J’ai remplacé le code complet du canvas par une version plus propre.
+
+Ce qui change :
+
+Le responsive desktop intermédiaire est maintenant géré avec de vraies variables CSS, pas des corrections empilées.
+
+Le texte ne doit plus déborder en écran réduit.
+
+Le carousel garde son slide horizontal parce que le déplacement est uniquement appliqué au carousel-track.
+
+Le point de départ du carousel est géré par :
+
+--start-x: clamp(650px, 50vw, 940px);
+et réduit proprement sur les petits desktops :
+
+--start-x: clamp(540px, 62vw, 760px);
+Donc le carousel démarre plus loin du texte, mais il peut encore glisser correctement ensuite.
+
+
+image(152).png
+ en HTML y a besoin de changer la ca marche tjr pas tjr depasser, et en mobile c horrible
+
+Thought for 1m 7s
+J’ai refait le HTML/CSS complet dans le canvas avec une structure plus stable.
+
+Changement important : le carousel n’est plus positionné “à moitié sous” le texte sur les petits desktops. Il démarre après la largeur réelle du panneau texte, donc il ne devrait plus passer sur le texte quand la fenêtre est réduite.
+
+J’ai remplacé la logique fragile par des variables claires :
+
+--panel-w
+--text-left
+--text-w
+--gallery-left
+--card-w
+Et le carousel commence maintenant avec :
+
+.gallery-zone {
+  inset: 8vh 0 7vh var(--gallery-left);
+}
+Donc quand l’écran se réduit, le texte et le carousel se recalculent proprement au lieu de se chevaucher.
+
+
+toujours pas quand onr eduit la taille ecran ca ne marche pas ca depasse,e t en mobile c trop haut
+
+Thought for 38s
+J’ai ajouté des correctifs CSS à la fin du canvas.
+
+Cette fois, j’ai forcé des breakpoints plus stricts :
+
+Pour petit desktop, entre 821px et 1350px, le panneau texte, le titre, le mail et les images du carousel se réduisent ensemble.
+
+Pour très petit desktop, entre 821px et 980px, le carousel est repoussé plus loin et les cartes sont encore plus petites.
+
+Pour mobile, le bloc texte est forcé plus bas avec :
+
+bottom: 22px !important;
+et le bloc est plus compact pour ne pas prendre trop de hauteur.
+
+
+image(153).png
+EN HTML c parfait mais juste y  a un masque chelou quic ache le carousel et c un peu trop coller, c ma derniere demande car la en responsive cas marche bien c jkuste elargir un peu pour le destop et virer ce masque
+
+Stopped thinking
+
+html
+
+Michaelens Studio Coming Soon
+· html
       z-index: 40;
       color: rgba(247,243,236,.38);
       font-size: 10px;
@@ -441,333 +716,57 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    @media (max-width: 1180px) {
+    @media (min-width: 821px) and (max-width: 1180px) {
       :root {
-        --carousel-start: clamp(430px, 46vw, 620px);
-      }
-
-      .content-layer::before {
-        width: clamp(400px, 38vw, 540px);
-      }
-
-      .photo-card {
-        flex-basis: clamp(310px, 36vw, 430px);
-        width: clamp(310px, 36vw, 430px);
-      }
-    }
-
-    @media (max-width: 820px) {
-      :root {
-        --carousel-start: 20px;
-      }
-
-      body {
-        min-height: 380vh;
-        min-height: calc(var(--vh) * 380);
-      }
-
-      .video-stage.is-out {
-        transform: translate3d(0, 116vh, 0);
-      }
-
-      .site-header {
-        padding: 18px 20px;
+        --panel-w: clamp(320px, 42vw, 430px);
+        --text-left: clamp(20px, 3.2vw, 38px);
+        --text-w: min(300px, calc(var(--panel-w) - var(--text-left) - 24px));
+        --gallery-left: calc(var(--panel-w) + clamp(44px, 7vw, 95px));
+        --card-w: clamp(245px, 31vw, 360px);
+        --carousel-gap: clamp(16px, 2vw, 26px);
       }
 
       .logo-wrap img {
-        height: clamp(50px, 18vw, 82px);
-      }
-
-      .header-tag,
-      .scroll-label,
-      .panel-label,
-      .gallery-caption {
-        display: none;
-      }
-
-      .content-layer::before {
-        top: auto;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 70vh;
-        background:
-          linear-gradient(180deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.46) 36%, rgba(0,0,0,.70) 100%),
-          linear-gradient(180deg, rgba(255,255,255,.040), rgba(255,255,255,.010));
-      }
-
-      .text-zone {
-        left: 20px;
-        right: 20px;
-        bottom: 74px;
-        top: auto;
-        width: min(350px, calc(100vw - 40px));
-        transform: none;
-      }
-
-      .eyebrow {
-        font-size: 9px;
-        margin-bottom: 16px;
+        height: clamp(48px, 6vw, 78px);
       }
 
       h1 {
-        font-size: clamp(30px, 9.8vw, 46px);
-        line-height: .98;
-        letter-spacing: -.035em;
-        max-width: 340px;
+        font-size: clamp(24px, 3.9vw, 38px);
       }
 
       .lead {
-        margin-top: 18px;
-        font-size: 14px;
-        max-width: 340px;
+        font-size: clamp(12px, 1.3vw, 14px);
       }
 
       .contact-card {
-        width: min(330px, 100%);
-        margin-top: 24px;
-        padding: 15px;
-        grid-template-columns: 44px 1fr;
-        gap: 13px;
-        border-radius: 20px;
+        max-width: 300px;
+        padding: 13px 14px;
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 11px;
+        border-radius: 18px;
       }
 
       .mail-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 14px;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
       }
 
       .contact-link {
-        font-size: clamp(12px, 4.1vw, 15px);
-      }
+        font-size: clamp(10.5px, 1.1vw, 13px);
+Thought for 19s
+J’ai modifié le HTML/CSS dans le canvas.
 
-      .gallery-zone {
-        inset: 88px 0 265px 0;
-        transform: translate3d(0, calc((1 - var(--carousel-progress)) * 44px), 0);
-      }
+J’ai ajouté un correctif final uniquement pour desktop :
 
-      .carousel-track {
-        gap: 14px;
-        padding-right: 20px;
-      }
+.carousel-shell {
+  overflow: visible !important;
+}
+Donc le carousel ne devrait plus être coupé par un masque.
 
-      .photo-card {
-        flex: 0 0 clamp(260px, 84vw, 430px);
-        width: clamp(260px, 84vw, 430px);
-        aspect-ratio: 16 / 9;
-        border-radius: 20px;
-      }
+J’ai aussi élargi légèrement la zone blur desktop :
 
-      .side-index {
-        right: 20px;
-        bottom: 20px;
-        font-size: 10px;
-        gap: 9px;
-      }
+width: clamp(440px, 34vw, 590px);
+Et j’ai ajouté un peu plus d’espace entre le texte et le carousel sur desktop, sans toucher au comportement mobile.
 
-      .progress-track {
-        width: 52px;
-      }
-    }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="fixed-site">
-    <div class="video-stage" id="videoStage">
-      <video class="hero-video" src="image/video.mp4" muted playsinline autoplay loop preload="auto"></video>
-    </div>
-
-    <header class="site-header">
-      <a class="logo-wrap" href="#" aria-label="Michaelens Studio">
-        <img src="image/logo.png" alt="Michaelens Studio" />
-      </a>
-      <div class="header-tag">Photography Studio</div>
-      <div class="scroll-label">Scroll</div>
-    </header>
-
-    <main class="content-layer">
-      <section class="text-zone" aria-label="Michaelens Studio en construction">
-        <div class="eyebrow">Michaelens Studio</div>
-        <h1>Site en<br><span class="thin">construction</span></h1>
-        <p class="lead">Le site est actuellement en cours de construction. Le studio prépare une nouvelle présence en ligne dédiée à la photographie professionnelle.</p>
-
-        <div class="contact-card">
-          <div class="mail-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48">
-              <rect x="8" y="12" width="32" height="24" rx="2"></rect>
-              <path d="M9 14l15 13 15-13"></path>
-              <path d="M18 24L9 35"></path>
-              <path d="M30 24l9 11"></path>
-            </svg>
-          </div>
-          <div>
-            <div class="contact-small">Pour me contacter</div>
-            <a class="contact-link" href="mailto:contact@michaelens-studio.ch">contact@michaelens-studio.ch</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="gallery-zone" aria-label="Galerie Michaelens Studio">
-        <div class="carousel-shell">
-          <div class="carousel-track" id="carouselTrack">
-            <figure class="photo-card"><img src="image/bg.png" alt="Photo Michaelens Studio 1"></figure>
-            <figure class="photo-card"><img src="image/bg2.png" alt="Photo Michaelens Studio 2"></figure>
-            <figure class="photo-card"><img src="image/bg3.png" alt="Photo Michaelens Studio 3"></figure>
-            <figure class="photo-card"><img src="image/bg4.png" alt="Photo Michaelens Studio 4"></figure>
-            <figure class="photo-card"><img src="image/bg5.png" alt="Photo Michaelens Studio 5"></figure>
-            <figure class="photo-card"><img src="image/bg6.png" alt="Photo Michaelens Studio 6"></figure>
-            <figure class="photo-card"><img src="image/bg7.png" alt="Photo Michaelens Studio 7"></figure>
-            <figure class="photo-card"><img src="image/bg8.png" alt="Photo Michaelens Studio 8"></figure>
-          </div>
-        </div>
-     
-      </section>
-    </main>
-
-    <div class="panel-label">01 / Accueil</div>
-
-    <div class="side-index" aria-hidden="true">
-      <span id="currentIndex">01</span>
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <span>08</span>
-    </div>
-
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="lightbox-close" type="button" aria-label="Fermer">×</button>
-      <img id="lightboxImage" src="" alt="">
-    </div>
-  </div>
-
-  <script>
-    const root = document.documentElement;
-    const videoStage = document.getElementById('videoStage');
-    const progressFill = document.getElementById('progressFill');
-    const currentIndex = document.getElementById('currentIndex');
-    const cards = Array.from(document.querySelectorAll('.photo-card'));
-    const totalCards = cards.length;
-    const carouselShell = document.querySelector('.carousel-shell');
-    const carouselTrack = document.querySelector('.carousel-track');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxClose = document.querySelector('.lightbox-close');
-
-    function setVh() {
-      root.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    }
-
-    function clamp(value, min, max) {
-      return Math.min(Math.max(value, min), max);
-    }
-
-    function smoothStep(edge0, edge1, value) {
-      const t = clamp((value - edge0) / (edge1 - edge0), 0, 1);
-      return t * t * (3 - 2 * t);
-    }
-
-    function pad(number) {
-      return String(number).padStart(2, '0');
-    }
-
-    function getCarouselStartPx() {
-      const styles = getComputedStyle(carouselTrack);
-      return parseFloat(styles.paddingLeft) || 0;
-    }
-
-    function updateCarousel(progress) {
-      const startOffset = getCarouselStartPx();
-      const maxCarouselX = Math.max(0, carouselTrack.scrollWidth - carouselShell.clientWidth);
-     const travel = maxCarouselX;
-      root.style.setProperty('--carousel-x', `${(travel * progress).toFixed(2)}px`);
-    }
-
-    function render() {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const rawProgress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-      const progress = clamp(rawProgress, 0, 1);
-
-      const videoShouldBeOut = progress >= .18;
-      const carouselOpacity = smoothStep(.38, .50, progress);
-      const carouselProgress = smoothStep(.48, 1, progress);
-      const activePhoto = Math.round(carouselProgress * (totalCards - 1)) + 1;
-
-      videoStage.classList.toggle('is-out', videoShouldBeOut);
-      root.style.setProperty('--carousel-opacity', carouselOpacity.toFixed(4));
-      root.style.setProperty('--carousel-progress', carouselProgress.toFixed(4));
-      updateCarousel(carouselProgress);
-
-      progressFill.style.width = `${Math.max(8, carouselProgress * 100)}%`;
-      currentIndex.textContent = pad(activePhoto);
-
-      cards.forEach((card, index) => {
-        const y = Math.sin((index + carouselProgress * 3.4) * 1.55) * 18;
-        card.style.setProperty('--card-offset', (y / 18).toFixed(3));
-      });
-    }
-
-    let ticking = false;
-
-    function requestRender() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        render();
-        ticking = false;
-      });
-    }
-
-    cards.forEach(card => {
-      const img = card.querySelector('img');
-      card.addEventListener('click', () => {
-        lightboxImage.src = img.currentSrc || img.src;
-        lightboxImage.alt = img.alt || '';
-        lightboxImage.onload = () => {
-          lightboxImage.style.setProperty('--natural-width', `${lightboxImage.naturalWidth}px`);
-          lightboxImage.style.setProperty('--natural-height', `${lightboxImage.naturalHeight}px`);
-        };
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden', 'false');
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('is-open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImage.src = '';
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', event => {
-      if (event.target === lightbox) closeLightbox();
-    });
-    window.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
-    });
-
-    setVh();
-    render();
-
-    window.addEventListener('scroll', requestRender, { passive: true });
-    window.addEventListener('resize', () => {
-      setVh();
-      requestRender();
-    });
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => {
-        setVh();
-        requestRender();
-      }, 250);
-    });
-  </script>
-</body>
-</html>
